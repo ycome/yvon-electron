@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as electron from 'electron';
+import { ElectronService } from 'ngx-electron';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -7,83 +7,83 @@ import * as electron from 'electron';
 })
 export class SearchBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private electronService: ElectronService) { }
 
-//   ngOnInit() {
-  
+  //   ngOnInit() {
 
 
-//   // Dans le processus renderer.
 
-  
-//   desktopCapturer.getSources({types: ['window', 'screen']}, (error, sources) => {
-//     if (error) throw error
-//     for (let i = 0; i < sources.length; ++i) {
-//       if (sources[i].name === 'Electron') {
-//         navigator.mediaDevices.getUserMedia({
-//           audio: false,
-//           video: {
-//             mandatory: {
-//               chromeMediaSource: 'desktop',
-//               chromeMediaSourceId: sources[i].id,
-//               minWidth: 1280,
-//               maxWidth: 1280,
-//               minHeight: 720,
-//               maxHeight: 720
-//             }
-//           }
-//         })
-//         .then((stream) => this.handleStream(stream))
-//         .catch((e) => this.handleError(e))
-//         return
-//       }
-//     }
-//   });
-// }
-  
-//    handleStream (stream) {
-//     const video = document.querySelector('video')
-//     video.srcObject = stream
-//     video.onloadedmetadata = (e) => video.play()
-//   }
-  
-//    handleError (e) {
-//     console.log(e)
-//   }
+  //   // Dans le processus renderer.
 
-ngOnInit() {
-  let n = <any>navigator;
-  let myvid = <HTMLInputElement>document.getElementById('raja');
-  electron.desktopCapturer.getSources({types: ['window', 'screen']}, (error, sources) => {
-  console.log(sources);
-  if (error) throw error;
-  for (let i = 0; i < sources.length; ++i) {
-  if (sources[i].name === 'YvonElectron') {
-  n.webkitGetUserMedia({
-  audio: false,
-  video: {
-  mandatory: {
-  chromeMediaSource: 'desktop',
-  chromeMediaSourceId: sources[i].id,
-  minWidth: 1280,
-  maxWidth: 1280,
-  minHeight: 720,
-  maxHeight: 720
-  }
-  }
-  }, gotStream, getUserMediaError);
-  return;
-  }
-  }
- });
-  
- function gotStream(stream) {
-  myvid.src = URL.createObjectURL(stream);
- }
-  
- function getUserMediaError(e) {
-  console.log('getUserMediaError');
- }
+
+  //   desktopCapturer.getSources({types: ['window', 'screen']}, (error, sources) => {
+  //     if (error) throw error
+  //     for (let i = 0; i < sources.length; ++i) {
+  //       if (sources[i].name === 'Electron') {
+  //         navigator.mediaDevices.getUserMedia({
+  //           audio: false,
+  //           video: {
+  //             mandatory: {
+  //               chromeMediaSource: 'desktop',
+  //               chromeMediaSourceId: sources[i].id,
+  //               minWidth: 1280,
+  //               maxWidth: 1280,
+  //               minHeight: 720,
+  //               maxHeight: 720
+  //             }
+  //           }
+  //         })
+  //         .then((stream) => this.handleStream(stream))
+  //         .catch((e) => this.handleError(e))
+  //         return
+  //       }
+  //     }
+  //   });
+  // }
+
+  //    handleStream (stream) {
+  //     const video = document.querySelector('video')
+  //     video.srcObject = stream
+  //     video.onloadedmetadata = (e) => video.play()
+  //   }
+
+  //    handleError (e) {
+  //     console.log(e)
+  //   }
+
+  ngOnInit() {
+    let n = <any>navigator;
+    let myvid = <HTMLInputElement>document.getElementById('raja');
+    this.electronService.desktopCapturer.getSources({ types: ['window', 'screen'] }, (error, sources) => {
+      console.log(sources);
+      if (error) throw error;
+      for (let i = 0; i < sources.length; ++i) {
+        if (sources[i].name === 'YvonElectron') {
+          n.webkitGetUserMedia({
+            audio: false,
+            video: {
+              mandatory: {
+                chromeMediaSource: 'desktop',
+                chromeMediaSourceId: sources[i].id,
+                minWidth: 1280,
+                maxWidth: 1280,
+                minHeight: 720,
+                maxHeight: 720
+              }
+            }
+          }, gotStream, getUserMediaError);
+          return;
+        }
+      }
+    });
+
+    function gotStream(stream) {
+      myvid.src = URL.createObjectURL(stream);
+    }
+
+    function getUserMediaError(e) {
+      console.log('getUserMediaError');
+    }
   }
 
 }

@@ -14,6 +14,12 @@
 </head>
 
 <body>
+  <script>
+    window.URL = window.URL || window.webkitURL;
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia ||
+      navigator.msGetUserMedia;
+
+  </script>
   <app-root></app-root>
 </body>
 

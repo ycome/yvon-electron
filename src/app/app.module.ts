@@ -10,12 +10,15 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 
 import { MatInputModule } from '@angular/material/input';
 import { AudioFilesComponent } from './components/audio-files/audio-files.component';
+import { NfcReaderComponent } from './components/nfc-reader/nfc-reader.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchBarComponent,
-    AudioFilesComponent
+    AudioFilesComponent,
+    NfcReaderComponent
   ],
   imports: [
     BrowserModule,

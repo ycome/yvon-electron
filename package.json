@@ -28,7 +28,10 @@
     "audiobuffer-to-wav": "^1.0.0",
     "core-js": "^2.5.4",
     "hark": "^1.2.0",
+    "nfc-pcsc": "^0.6.2",
     "ngx-electron": "^1.0.4",
+    "node-loader": "^0.6.0",
+    "pcsclite": "^0.6.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"
   },
@@ -42,6 +45,7 @@
     "@types/node": "~8.9.4",
     "codelyzer": "~4.2.1",
     "electron": "^2.0.0",
+    "electron-rebuild": "^1.7.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~1.7.1",

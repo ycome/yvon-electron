@@ -13,6 +13,7 @@ import { AudioFilesComponent } from './components/audio-files/audio-files.compon
 import { NfcReaderComponent } from './components/nfc-reader/nfc-reader.component';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
+import { RecorderService } from './services/recorder/recorder.service';
 
 
 
@@ -32,7 +33,8 @@ import { environment } from '../environments/environment';
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
-    WitService
+    WitService,
+    RecorderService
   ],
   bootstrap: [AppComponent]
 })

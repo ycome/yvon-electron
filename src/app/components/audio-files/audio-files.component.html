@@ -15,8 +15,9 @@
         <p>Also before you enable microphone input either plug in headphones or turn the volume down if you want to avoid ear
           splitting feedback!</p>
 
-        <button [disabled]="isRecording" (click)="record()">Record</button>
-        <button [disabled]="!isRecording" (click)="stop()">Stop</button>
+        <button [disabled]="recordStatus.recording" (click)="record()">Record</button>
+        <button [disabled]="!recordStatus.recording" (click)="stop()">Stop</button>
+        {{recordStatus | json}}
 
         <h2>Recordings</h2>
         <ul id="recordingslist"></ul>

@@ -6,7 +6,15 @@ export const environment = {
   production: false,
   wit: {
     public_token: 'LQBKVXRJFSQW56FQTY7ONNJMJGMHWPKR',
-    api_version: '20170307'
+    api_version: '20170307',
+  },
+  firebase: {
+    apiKey: 'AIzaSyAmJ2CaFGUatBUI0L-84K8lB4rLdJ3WKIg',
+    authDomain: 'ynov-yvon.firebaseapp.com',
+    databaseURL: 'https://ynov-yvon.firebaseio.com',
+    projectId: 'ynov-yvon',
+    storageBucket: 'ynov-yvon.appspot.com',
+    messagingSenderId: '231764147130'
   }
 };
 

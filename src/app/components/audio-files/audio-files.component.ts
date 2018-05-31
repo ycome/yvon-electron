@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 declare const navigator: any;
 declare const MediaRecorder: any;
 declare const Recorder: any;
@@ -17,14 +17,14 @@ import * as hark from 'hark';
 })
 export class AudioFilesComponent implements OnInit {
 
-  public isRecording = false;
+  public recordStatus: { recording: boolean } = { recording: false };
   private chunks: any = [];
   private mediaRecorder: any;
   private speechEvents: any;
   public recorder: any;
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private changeDetectorRef: ChangeDetectorRef) { }
 
 
 
@@ -102,13 +102,13 @@ export class AudioFilesComponent implements OnInit {
 
 
 
-  record() {
-    this.isRecording = true;
+  public record() {
+    this.recordStatus.recording = true;
     this.speechEvents.resume();
   }
 
-  stop = () => {
-    this.isRecording = false;
+  public stop() {
+    this.recordStatus.recording = false;
     this.speechEvents.suspend();
     const witToken = 'LQBKVXRJFSQW56FQTY7ONNJMJGMHWPKR'; // get one from wit.ai!
 
@@ -119,6 +119,8 @@ export class AudioFilesComponent implements OnInit {
         'Content-Type': 'audio/wav'
       })
     };
+
+    this.changeDetectorRef.detectChanges();
 
     this.recorder.exportWAV((s) => {
       this.http.post('https://api.wit.ai/speech?v=20170307', s, httpOptions)

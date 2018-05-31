@@ -12,6 +12,7 @@ export class AudioFilesComponent implements OnInit {
 
 
   public loaderPercent = 0;
+  public status = '';
 
   constructor(private recorderService: RecorderService) { }
 
@@ -19,12 +20,14 @@ export class AudioFilesComponent implements OnInit {
 
   ngOnInit() {
 
-    this.recorderService.recorderStatus.subscribe(console.log);
+    this.recorderService.recorderStatus.subscribe(recordStatus => {
+      this.status = recordStatus;
+    });
     this.recorderService.WaveRecorded.subscribe(() => {
       console.log('WAVE_FOR_SEND');
     });
     this.recorderService.recordingTime.subscribe((t) => {
-      console.log('time : ', t);
+      // console.log('time : ', t);
       this.loaderPercent = t > 0 ? ((t / this.recorderService.recordingMaxTime) * 100) : t;
     });
 

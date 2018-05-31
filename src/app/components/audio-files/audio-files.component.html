@@ -1,7 +1,11 @@
 <div>
-  <button (click)="start()">Record</button>
-  <mat-progress-spinner color="warn" mode="determinate" [value]="loaderPercent">
-  </mat-progress-spinner>
-  {{loaderPercent}}
+  <div class="buttonInSpinner">
+    <mat-progress-spinner color="warn" mode="determinate" [value]="loaderPercent" class="spinnerIn">
+    </mat-progress-spinner>
+    <button mat-fab color="warn" (click)="start()" class="buttonIn">
+      <mat-icon *ngIf="status === 'recording' || status === 'wait' ">mic</mat-icon>
+      <mat-icon *ngIf="status !== 'recording' && status !== 'wait'">mic_none</mat-icon>
+    </button>
+  </div>
 </div>
 <!-- END PAGE CONTENT WRAPPER -->

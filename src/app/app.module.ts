@@ -16,7 +16,8 @@ import { environment } from '../environments/environment';
 import { RecorderService } from './services/recorder/recorder.service';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NgxElectronModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     WitService,

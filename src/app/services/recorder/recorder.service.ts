@@ -15,7 +15,7 @@ import * as hark from 'hark';
 export class RecorderService {
 
 
-  public recorderStatus: BehaviorSubject<String> = new BehaviorSubject('off');
+  public recorderStatus: BehaviorSubject<string> = new BehaviorSubject('off');
   public WaveRecorded: Subject<any> = new Subject();
   public recordingTime: BehaviorSubject<number> = new BehaviorSubject(0);
   public recordingMaxTime = 5000;

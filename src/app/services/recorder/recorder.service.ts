@@ -17,8 +17,8 @@ export class RecorderService {
 
   public recorderStatus: BehaviorSubject<String> = new BehaviorSubject('off');
   public WaveRecorded: Subject<any> = new Subject();
-  public recordingTime: BehaviorSubject<Number> = new BehaviorSubject(0);
-
+  public recordingTime: BehaviorSubject<number> = new BehaviorSubject(0);
+  public recordingMaxTime = 5000;
   private chunks: any = [];
   private mediaRecorder: any;
   private speechEvents: any;
@@ -94,8 +94,8 @@ export class RecorderService {
 
   stopAtEndTime() {
     this.recordingTime.next(this.currentTime);
-    this.currentTime++;
-    if (this.currentTime >= 5) {
+    this.currentTime += 100;
+    if (this.currentTime >= this.recordingMaxTime) {
       console.log('time_stopped_speaking_automaticaly');
       this.stopRecord();
     }
@@ -112,7 +112,7 @@ export class RecorderService {
 
   stopOnTimeout() {
     this.stopTimeout();
-    this.currentSetInterval = setInterval(() => { this.stopAtEndTime(); }, 1000);
+    this.currentSetInterval = setInterval(() => { this.stopAtEndTime(); }, 100);
   }
 
   // private handleError(error: HttpErrorResponse) {

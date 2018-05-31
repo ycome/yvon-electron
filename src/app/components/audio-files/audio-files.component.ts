@@ -11,7 +11,7 @@ import { RecorderService } from '../../services/recorder/recorder.service';
 export class AudioFilesComponent implements OnInit {
 
 
-
+  public loaderPercent = 0;
 
   constructor(private recorderService: RecorderService) { }
 
@@ -25,6 +25,7 @@ export class AudioFilesComponent implements OnInit {
     });
     this.recorderService.recordingTime.subscribe((t) => {
       console.log('time : ', t);
+      this.loaderPercent = t > 0 ? ((t / this.recorderService.recordingMaxTime) * 100) : t;
     });
 
   }

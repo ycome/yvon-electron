@@ -15,6 +15,7 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { RecorderService } from './services/recorder/recorder.service';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { RecorderService } from './services/recorder/recorder.service';
     MatInputModule,
     NgxElectronModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    MatProgressSpinnerModule
   ],
   providers: [
     WitService,

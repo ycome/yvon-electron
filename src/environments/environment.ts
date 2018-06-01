@@ -7,6 +7,7 @@ export const environment = {
   wit: {
     public_token: 'LQBKVXRJFSQW56FQTY7ONNJMJGMHWPKR',
     api_version: '20170307',
+    url: 'https://api.wit.ai/'
   },
   firebase: {
     apiKey: 'AIzaSyAmJ2CaFGUatBUI0L-84K8lB4rLdJ3WKIg',

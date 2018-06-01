@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
-import { WitService } from './services/wit.service';
+import { WitService } from './services/wit/wit.service';
 import { MatInputModule } from '@angular/material/input';
 import { AudioFilesComponent } from './components/audio-files/audio-files.component';
 import { NfcReaderComponent } from './components/nfc-reader/nfc-reader.component';
@@ -18,13 +18,17 @@ import { RecorderService } from './services/recorder/recorder.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { ActionBarComponent } from './components/action-bar/action-bar.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchBarComponent,
     AudioFilesComponent,
-    NfcReaderComponent
+    NfcReaderComponent,
+    ActionBarComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { MatIconModule } from '@angular/material/icon';
     AngularFireModule.initializeApp(environment.firebase),
     MatProgressSpinnerModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    FlexLayoutModule
   ],
   providers: [
     WitService,

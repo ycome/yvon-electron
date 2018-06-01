@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RecorderService } from '../../services/recorder/recorder.service';
+import { mergeMap } from 'rxjs/operators';
+import { WitService } from '../../services/wit/wit.service';
 
 
 
@@ -14,7 +16,7 @@ export class AudioFilesComponent implements OnInit {
   public loaderPercent = 0;
   public status = '';
 
-  constructor(private recorderService: RecorderService) { }
+  constructor(private recorderService: RecorderService, private witService: WitService) { }
 
 
 
@@ -23,8 +25,10 @@ export class AudioFilesComponent implements OnInit {
     this.recorderService.recorderStatus.subscribe(recordStatus => {
       this.status = recordStatus;
     });
-    this.recorderService.WaveRecorded.subscribe(() => {
-      console.log('WAVE_FOR_SEND');
+    this.recorderService.WaveRecorded.pipe(
+      mergeMap(wav => this.witService.getIntentsByWav(wav))
+    ).subscribe(witResponse => {
+      console.log(witResponse);
     });
     this.recorderService.recordingTime.subscribe((t) => {
       // console.log('time : ', t);

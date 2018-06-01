@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
-import { WitService } from './services/wit.service';
+import { WitService } from './services/wit/wit.service';
 import { MatInputModule } from '@angular/material/input';
 import { AudioFilesComponent } from './components/audio-files/audio-files.component';
 import { NfcReaderComponent } from './components/nfc-reader/nfc-reader.component';

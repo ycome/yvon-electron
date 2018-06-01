@@ -65,9 +65,11 @@ export class RecorderService {
 
     this.speechEvents.on('speaking', () => {
       // console.log('speaking');
-      this.recorder.record();
-      this.recorderStatus.next('recording');
-      this.stopOnTimeout();
+      if (this.recorderStatus.value === 'wait') {
+        this.recorder.record();
+        this.recorderStatus.next('recording');
+        this.stopOnTimeout();
+      }
     });
 
     // this.speechEvents.on('volume_change', (volume, threshold) => {

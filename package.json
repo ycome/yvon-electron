@@ -28,6 +28,7 @@
     "audiobuffer-to-wav": "^1.0.0",
     "core-js": "^2.5.4",
     "hark": "^1.2.0",
+    "simple-pcsc": "0.0.2",
     "ngx-electron": "^1.0.4",
     "node-loader": "^0.6.0",
     "rxjs": "^6.0.0",

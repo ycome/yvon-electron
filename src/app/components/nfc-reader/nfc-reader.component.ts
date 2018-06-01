@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ChangeDetectorRef } from '@angular/core';
 import { ElectronService } from 'ngx-electron';
 // import { NFC } from 'nfc-pcsc';
 
@@ -14,42 +14,48 @@ export class NfcReaderComponent implements OnInit {
 
   // nfc = new NFC();
 
-  constructor(private _electronService: ElectronService, private _ngZone: NgZone) {
-    // this.runTheScan();
+  constructor(
+    private _electronService: ElectronService,
+    private _ngZone: NgZone,
+    private _changeDetectorRef: ChangeDetectorRef) {
+    this.runTheScan();
 
-    this.readerCar();
+    // this.readerCar();
 
     // this._electronService.ipcRenderer.on('reader', (event, message) => {
     //   this._ngZone.run(() => {
     //     console.log(`Asynchronous message reply: ${message}`);
     //     this.status = message;
     //   });
-    // })
+    // });
   }
 
   ngOnInit() {
 
   }
 
-  playPingPong() {
-    this._electronService.ipcRenderer.send('asynchronous-message', 'ping');
-    console.log('done');
+  runTheScan() {
+    console.log('Reader Scan launched');
+    this._electronService.ipcRenderer.on('reader', (event, message) => {
+      this.status = message;
+      this._changeDetectorRef.detectChanges();
+    });
+    this._electronService.ipcRenderer.on('card', (event, message) => {
+      console.log(`Asynchronous message reply: ${message}`);
+      this.listId.push(message);
+      this._changeDetectorRef.detectChanges();
+    });
+    this._electronService.ipcRenderer.on('error', (event, message) => {
+      console.log(`Asynchronous message reply: ${message}`);
+      this.status = message;
+      this._changeDetectorRef.detectChanges();
+    });
+    this._electronService.ipcRenderer.on('end', (event, message) => {
+      console.log(`Asynchronous message reply: ${message}`);
+      this.status = message;
+      this._changeDetectorRef.detectChanges();
+    });
   }
-
-  // runTheScan() {
-  //   this._electronService.ipcRenderer.on('reader', (event, message) => {
-  //     this.status = message;
-  //   })
-  //   this._electronService.ipcRenderer.on('card', (event, message) => {
-  //     this.listId.push(message);
-  //   })
-  //   this._electronService.ipcRenderer.on('error', (event, message) => {
-  //     this.status = message;
-  //   })
-  //   this._electronService.ipcRenderer.on('end', (event, message) => {
-  //     this.status = message;
-  //   })
-  // }
 
   readerCar() {
     console.log('Reader launched');

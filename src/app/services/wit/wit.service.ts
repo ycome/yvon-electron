@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from './../../../environments/environment';
 import { HttpErrorResponse, HttpHeaders, HttpClient } from '@angular/common/http';
-import { throwError, Observable } from 'rxjs';
+import { throwError, Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 @Injectable({
@@ -24,24 +24,26 @@ export class WitService {
         `body was: ${error.error}`);
     }
     // return an observable with a user-facing error message
-    return throwError(
-      'Something bad happened; please try again later.');
+    return of('Désolé, je n\'ai pas compris');
   }
 
   getIntentsByWav(wav): Observable<Object> {
+    if (wav) {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Accept': 'application/vnd.wit.20160202+json',
+          'Authorization': 'Bearer ' + environment.wit.public_token,
+          'Content-Type': 'audio/wav'
+        })
+      };
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Accept': 'application/vnd.wit.20160202+json',
-        'Authorization': 'Bearer ' + environment.wit.public_token,
-        'Content-Type': 'audio/wav'
-      })
-    };
 
-
-    return this._http.post(environment.wit.url + 'speech?v=' + environment.wit.api_version, wav, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
+      return this._http.post(environment.wit.url + 'speech?v=' + environment.wit.api_version, wav, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+    } else {
+      return of();
+    }
   }
 }

@@ -1,9 +1,22 @@
 <mat-toolbar class="action-bar">
   <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center" fxFill>
     <div>
-
+      <div fxLayout="column" fxLayoutAlign="center start">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="dot" [ngClass]="nfcReady ? 'dot-green' : 'dot-red'"></div>
+          <div>
+            <p> &nbsp;Nfc</p>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="dot" [ngClass]="recorderReady ? 'dot-green' : 'dot-red'"></div>
+          <div>
+            <p>&nbsp; Audio Record</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div style="padding-right: 50px">
+    <div style="height: 100px; width: 100px;">
       <app-audio-files style="position:inherit"></app-audio-files>
     </div>
     <div>

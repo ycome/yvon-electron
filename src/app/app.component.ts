@@ -11,6 +11,8 @@ export class AppComponent {
   title = 'app';
 
   constructor(private _nfcReaderService: NfcReaderService) {
-    this._nfcReaderService.runTheScan();
+    if (process && process.versions && process.versions.electron) {
+      this._nfcReaderService.runTheScan();
+    }
   }
 }

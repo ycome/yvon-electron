@@ -1,5 +1,6 @@
 <div>
-  Device status : {{ status }}</div>
+  <span class="dot" [ngClass]="isReady ? 'dot-green' : 'dot-red'"></span> {{ isReady ? 'Read' : 'Not Connected' }}
+</div>
 <ul>
   <li *ngFor="let id of listId">
     {{ id }}

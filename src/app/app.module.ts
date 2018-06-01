@@ -11,7 +11,13 @@ import { WitService } from './services/wit.service';
 import { MatInputModule } from '@angular/material/input';
 import { AudioFilesComponent } from './components/audio-files/audio-files.component';
 import { NfcReaderComponent } from './components/nfc-reader/nfc-reader.component';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { RecorderService } from './services/recorder/recorder.service';
 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -25,10 +31,15 @@ import { NfcReaderComponent } from './components/nfc-reader/nfc-reader.component
     BrowserAnimationsModule,
     MatInputModule,
     NgxElectronModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
-    WitService
+    WitService,
+    RecorderService
   ],
   bootstrap: [AppComponent]
 })

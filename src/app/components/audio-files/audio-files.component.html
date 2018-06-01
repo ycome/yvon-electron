@@ -1,38 +1,11 @@
-<!-- START PAGE CONTENT WRAPPER -->
-<div class="page-content-wrapper ">
-  <!-- START PAGE CONTENT -->
-  <div class="content ">
-
-
-
-    <!-- START CONTAINER FLUID -->
-    <div class="container-fluid container-fixed-lg bg-white">
-      <!-- START PANEL -->
-      <div class="panel panel-transparent">
-        <h1>Recorder.js simple WAV export example</h1>
-
-        <p>Make sure you are using a recent version of Google Chrome.</p>
-        <p>Also before you enable microphone input either plug in headphones or turn the volume down if you want to avoid ear
-          splitting feedback!</p>
-
-        <button [disabled]="isRecording" (click)="record()">Record</button>
-        <button [disabled]="!isRecording" (click)="stop()">Stop</button>
-
-        <h2>Recordings</h2>
-        <ul id="recordingslist"></ul>
-
-        <h2>Log</h2>
-        <pre id="log"></pre>
-      </div>
-      <!-- END PANEL -->
-    </div>
-
+<div>
+  <div class="buttonInSpinner">
+    <mat-progress-spinner color="warn" mode="determinate" [value]="loaderPercent" class="spinnerIn">
+    </mat-progress-spinner>
+    <button mat-fab color="warn" (click)="start()" class="buttonIn">
+      <mat-icon *ngIf="status === 'recording' || status === 'wait' ">mic</mat-icon>
+      <mat-icon *ngIf="status !== 'recording' && status !== 'wait'">mic_none</mat-icon>
+    </button>
   </div>
-  <!-- END PAGE CONTENT -->
-
-  <!-- START FOOTER -->
-
-  <!-- END FOOTER -->
-
 </div>
 <!-- END PAGE CONTENT WRAPPER -->

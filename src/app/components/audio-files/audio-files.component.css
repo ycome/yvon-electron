@@ -1,0 +1,25 @@
+.buttonIn {
+  position: absolute;
+  margin: auto;
+  top: 12px;
+  left: 12px;
+  width: 76px;
+  height: 76px;
+}
+
+.buttonIn mat-icon {
+  height: inherit !important;
+  width: inherit !important;
+  font-size: 40px;
+}
+
+.buttonInSpinner {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: auto;
+}
+
+.spinnerIn {
+  position: absolute;
+}

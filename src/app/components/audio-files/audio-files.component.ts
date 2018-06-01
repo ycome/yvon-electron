@@ -27,9 +27,16 @@ export class AudioFilesComponent implements OnInit {
     });
     this.recorderService.WaveRecorded.pipe(
       mergeMap(wav => this.witService.getIntentsByWav(wav))
-    ).subscribe(witResponse => {
-      console.log(witResponse);
-    });
+    ).subscribe(
+      witResponse => {
+        console.log(witResponse);
+      },
+      err => {
+        console.error('error from record or wit : ', err);
+      },
+      () => {
+        console.error('fin from record or wit ');
+      });
     this.recorderService.recordingTime.subscribe((t) => {
       // console.log('time : ', t);
       this.loaderPercent = t > 0 ? ((t / this.recorderService.recordingMaxTime) * 100) : t;

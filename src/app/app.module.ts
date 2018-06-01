@@ -19,8 +19,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
 import { ActionBarComponent } from './components/action-bar/action-bar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ChatuiComponent } from './components/chatui/chatui.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     SearchBarComponent,
     AudioFilesComponent,
     NfcReaderComponent,
-    ActionBarComponent
+    ActionBarComponent,
+    ChatuiComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatCardModule
   ],
   providers: [
     WitService,

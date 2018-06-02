@@ -1,5 +1,52 @@
-<div fxLayout="column" fxLayoutAlign="end stretch" class="chat-ui">
-  <div fxLayout="row" fxLayoutAlign="start center">
+<div #scrollMe class="chat-ui">
+  <div class="chat-ui-row" *ngFor="let message of messages | async" [ngClass]="{'start': message.author === 'yvon',  'end': message.author === 'student'}">
+    <mat-card [ngClass]="{'chat-ui-yvon': message.author === 'yvon',  'chat-ui-student': message.author === 'student'}">
+      {{ message.content }}
+    </mat-card>
+  </div>
+  <!-- <div class="chat-ui-row start">
+    <mat-card class="chat-ui-yvon">Message from Yvon</mat-card>
+  </div>
+  <div class="chat-ui-row end">
+    <mat-card class="chat-ui-student">Message from students</mat-card>
+  </div>
+  <div class="chat-ui-row end">
+    <mat-card class="chat-ui-student">
+      <p>
+        Message from students, je vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin
+        da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf
+        asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere
+        isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous
+        encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko
+        sajkdjsa kjfk jsakljf as
+      </p>
+    </mat-card>
+  </div>
+  <div class="chat-ui-row start">
+    <mat-card class="chat-ui-yvon">
+      <p>Message from students, je vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste
+        putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf
+        asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere
+        isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous
+        encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko
+        sajkdjsa kjfk jsakljf as</p>
+    </mat-card>
+  </div>
+  <div class="chat-ui-row start">
+    <mat-card class="chat-ui-yvon">Message from Yvon, Message from students, je vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje
+      vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko
+      sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la
+      poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk
+      jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da
+      ca mere isjadko sajkdjsa kjfk jsakljf as</mat-card>
+  </div>
+  <div class="chat-ui-row end">
+    <mat-card class="chat-ui-student">Message from students</mat-card>
+  </div>
+  <div class="chat-ui-row end">
+    <mat-card class="chat-ui-student">Message from students</mat-card>
+  </div> -->
+  <!-- <div fxLayout="row" fxLayoutAlign="start center">
     <mat-card>Message from Yvon</mat-card>
   </div>
   <div fxLayout="row" fxLayoutAlign="end center">
@@ -14,10 +61,10 @@
   <div fxLayout="row" fxLayoutAlign="end center">
     <mat-card>Message from students</mat-card>
   </div>
-  <div fxLayout="row" fxLayoutAlign="end center">
+  <div fxLayout="row" class="chat-ui-row" fxLayoutAlign="end center">
     <mat-card>Message from students</mat-card>
   </div>
-  <div fxLayout="row" fxLayoutAlign="end center">
+  <div fxLayout="row" class="chat-ui-row" fxLayoutAlign="end center">
     <mat-card>Message from students</mat-card>
   </div>
   <div fxLayout="row" fxLayoutAlign="end center">
@@ -34,5 +81,5 @@
   </div>
   <div fxLayout="row" fxLayoutAlign="start center">
     <mat-card>Message from Yvon</mat-card>
-  </div>
+  </div> -->
 </div>

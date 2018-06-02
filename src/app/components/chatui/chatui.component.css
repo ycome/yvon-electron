@@ -1,5 +1,34 @@
 .chat-ui {
-  overflow-x: scroll;
-  height: 100vh;
-  padding-bottom: 120px;
+  overflow-y: scroll;
+  /* height: 100vh; */
+  padding: 15px 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+}
+
+.chat-ui-row {
+  display: flex;
+  flex-direction: row;
+  padding: 0 10px 10px 10px;
+}
+
+.start {
+  justify-content: flex-start;
+}
+
+.end {
+  justify-content: flex-end;
+}
+
+.chat-ui-student {
+  color: #fff;
+  background-color: #1BB09D;
+  max-width: 70%;
+}
+
+.chat-ui-yvon {
+  color: #fff;
+  background-color: #E93863;
+  max-width: 70%;
 }

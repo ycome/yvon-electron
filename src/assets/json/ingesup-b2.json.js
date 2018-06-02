@@ -1,4 +1,4 @@
-{
+module.exports ={
   "VCALENDAR": [{
     "X-WR-CALNAME;LANGUAGE=fr": "HYP - 1036 - Nantes | INGESUP B2 - du 28 août 2017 au 03 novembre 2018",
     "PRODID;LANGUAGE=fr": "Copyright Index-Education - HYPERPLANNING 2018",

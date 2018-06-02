@@ -1,4 +1,4 @@
-{
+module.exports = {
   "VCALENDAR": [{
     "VERSION": "2.0",
     "PRODID;LANGUAGE=fr": "Copyright Index-Education - HYPERPLANNING 2018",

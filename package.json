@@ -31,10 +31,11 @@
     "core-js": "^2.5.4",
     "firebase": "^5.0.4",
     "hark": "^1.2.0",
-    "simple-pcsc": "0.0.2",
+    "moment": "^2.22.2",
     "ngx-electron": "^1.0.4",
     "node-loader": "^0.6.0",
     "rxjs": "^6.0.0",
+    "simple-pcsc": "0.0.2",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

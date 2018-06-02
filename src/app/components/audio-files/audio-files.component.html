@@ -5,7 +5,9 @@
     <button mat-fab color="warn" (click)="start()" class="buttonIn">
       <mat-icon *ngIf="status === 'recording' || status === 'wait' ">mic</mat-icon>
       <mat-icon *ngIf="status !== 'recording' && status !== 'wait' && loading === 0">mic_none</mat-icon>
-      <div class="loader" *ngIf="status !== 'recording' && status !== 'wait' && loading > 0">Loading...</div>
+      <div *ngIf="status !== 'recording' && status !== 'wait' && loading > 0" class="loader-5">
+        <span></span>
+      </div>
     </button>
   </div>
 </div>

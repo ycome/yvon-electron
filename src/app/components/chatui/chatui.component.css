@@ -1,0 +1,5 @@
+.chat-ui {
+  overflow-x: scroll;
+  height: 100vh;
+  padding-bottom: 120px;
+}

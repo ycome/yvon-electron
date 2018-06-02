@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AudioFilesComponent } from './components/audio-files/audio-files.component';
 import { NfcReaderComponent } from './components/nfc-reader/nfc-reader.component';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
 import { RecorderService } from './services/recorder/recorder.service';
 
@@ -40,6 +41,7 @@ import { ChatuiComponent } from './components/chatui/chatui.component';
     NgxElectronModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     MatProgressSpinnerModule,
     MatButtonModule,
     MatIconModule,

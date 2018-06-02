@@ -24,6 +24,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ActionBarComponent } from './components/action-bar/action-bar.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ChatuiComponent } from './components/chatui/chatui.component';
+import { ChatMessagesService } from './services/chat-messages/chat-messages.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { ChatuiComponent } from './components/chatui/chatui.component';
   ],
   providers: [
     WitService,
-    RecorderService
+    RecorderService,
+    ChatMessagesService
   ],
   bootstrap: [AppComponent]
 })

@@ -24,7 +24,10 @@ export class WitService {
         `body was: ${error.error}`);
     }
     // return an observable with a user-facing error message
-    return of('Désolé, je n\'ai pas compris');
+    return of({
+      author: 'yvon',
+      _text: 'Désolé, je n\'ai pas compris'
+    });
   }
 
   getIntentsByWav(wav): Observable<Object> {

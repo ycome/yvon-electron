@@ -1,3 +1,4 @@
+import { ChatMessagesService } from './../../services/chat-messages/chat-messages.service';
 import { Component, OnInit } from '@angular/core';
 import { RecorderService } from '../../services/recorder/recorder.service';
 import { mergeMap } from 'rxjs/operators';
@@ -16,7 +17,10 @@ export class AudioFilesComponent implements OnInit {
   public loaderPercent = 0;
   public status = '';
 
-  constructor(private recorderService: RecorderService, private witService: WitService) { }
+  constructor(
+    private recorderService: RecorderService,
+    private witService: WitService,
+    private _chatMessagesService: ChatMessagesService) { }
 
 
 
@@ -28,8 +32,12 @@ export class AudioFilesComponent implements OnInit {
     this.recorderService.WaveRecorded.pipe(
       mergeMap(wav => this.witService.getIntentsByWav(wav))
     ).subscribe(
-      witResponse => {
+      (witResponse: any) => {
         console.log(witResponse);
+        this._chatMessagesService.sendMessage({
+          author: witResponse.author || 'student',
+          content: witResponse._text
+        });
       },
       err => {
         console.error('error from record or wit : ', err);

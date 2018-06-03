@@ -17,7 +17,7 @@ export class YvonService {
       actionFn: p => this.getNextCours(p),
       entities: { formation_type: [] },
       listType: 'calendarList',
-      list: []
+      list: { next: [], now: [] }
     },
     formations: {
       author: 'yvon',
@@ -36,7 +36,7 @@ export class YvonService {
   constructor(private _calendar: CalendarService, private _databaseService: DatabaseService) { }
 
   getNextCours(entities) {
-    return this._calendar.getCurrentEventOfFormation('ingesup_b2');
+    return Promise.resolve(this._calendar.getCurrentEventOfFormation('ingesup_b2'));
     // if (entities.length > 0) {
     //   return this._calendar.getCurrentEventOfFormation('');
     // } else {

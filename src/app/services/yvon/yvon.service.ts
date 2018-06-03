@@ -7,7 +7,7 @@ export class YvonService {
 
   private yvonActions = {
     cours: {
-      message: 'voici vos prochain cours : ',
+      message: 'voici vos prochains cours : ',
       actionType: 'calendar'
     },
     formations: {

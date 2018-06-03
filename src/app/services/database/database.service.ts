@@ -37,7 +37,7 @@ export class DatabaseService {
         this.networkCheck.next(true);
         setTimeout(() => {
           this.testNetwork();
-        }, 4000);
+        }, 8000);
       }).catch(err => {
         this.networkCheck.next(false);
         console.error(err);

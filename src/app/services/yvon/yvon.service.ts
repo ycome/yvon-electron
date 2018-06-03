@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { CalendarService } from '../calendar/calendar.service';
 import { DatabaseService } from '../database/database.service';
 import { first } from 'rxjs/operators';
+import { NfcReaderService } from '../nfc-reader/nfc-reader.service';
+import { ChatMessagesService } from '../chat-messages/chat-messages.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,13 +29,52 @@ export class YvonService {
       listType: 'simpleList',
       list: []
     },
+    newUser: {
+      author: 'yvon',
+      content: 'Bonjour, veuillez selectionner votre formation :',
+      actionFn: () => this.getFormations(),
+      entities: { formation_type: [] },
+      listType: 'selectionListNewUser',
+      list: []
+    },
     default: {
       author: 'yvon',
       content: 'Désolé, je ne sais pas comment vous aidez :('
     }
   };
 
-  constructor(private _calendar: CalendarService, private _databaseService: DatabaseService) { }
+  constructor(
+    private _calendar: CalendarService,
+    private _databaseService: DatabaseService,
+    private _nfcService: NfcReaderService,
+    private _messagesService: ChatMessagesService
+  ) {
+    this._nfcService.nfcData.subscribe(cardId => {
+      this._messagesService.clearChat();
+      if (cardId) {
+        this._databaseService.getNfcCardById(cardId).pipe(first()).toPromise().then(user => {
+          if (user) {
+            this._messagesService.sendMessage({
+              author: 'yvon',
+              content: 'Bonjour étudiant en '
+            });
+          } else {
+            this.execAction(this.YVON_ACTIONS.newUser).then((message: any) => {
+              delete message.actionFn;
+              delete message.entities;
+              message.userId = cardId;
+              console.log('YVON SAY : ', message);
+              this._messagesService.sendMessage(message);
+            }).catch(err => {
+              console.error(err);
+            });
+          }
+        }).catch(err => {
+          console.error(err);
+        });
+      }
+    });
+  }
 
   getNextCours(entities) {
     return Promise.resolve(this._calendar.getCurrentEventOfFormation('ingesup_b2'));
@@ -54,7 +95,7 @@ export class YvonService {
     return exist;
   }
 
-  getFormations(entities) {
+  getFormations(entities = []) {
     return this._databaseService.getFormations().pipe(first()).toPromise().then(formations => {
       console.log('FORMATIONS : ', formations);
       if (entities && entities.length > 0) {

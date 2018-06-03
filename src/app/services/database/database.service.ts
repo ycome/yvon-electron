@@ -26,14 +26,25 @@ export class DatabaseService {
     this.formations = db.collection(this.FORMATIONS_COLLECTION_NAME);
     this.networktest = db.collection(this.NETWORK_COLLECTION_NAME);
 
-    setInterval(() => {
-      this.networktest.doc('test').valueChanges().pipe(first()).toPromise()
-        .then(() => {
-          this.networkCheck.next(true);
-        }).catch(err => {
-          this.networkCheck.next(false);
-        });
+    setTimeout(() => {
+      this.testNetwork();
     }, 4000);
+  }
+
+  testNetwork() {
+    this.networktest.doc('test').valueChanges().pipe(first()).toPromise()
+      .then(() => {
+        this.networkCheck.next(true);
+        setTimeout(() => {
+          this.testNetwork();
+        }, 4000);
+      }).catch(err => {
+        this.networkCheck.next(false);
+        console.error(err);
+        setTimeout(() => {
+          this.testNetwork();
+        }, 4000);
+      });
   }
 
   getFormations() {

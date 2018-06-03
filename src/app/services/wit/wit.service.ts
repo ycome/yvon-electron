@@ -26,7 +26,8 @@ export class WitService {
     // return an observable with a user-facing error message
     return of({
       author: 'yvon',
-      _text: 'Désolé, je n\'ai pas compris :('
+      _text: 'Désolé, je n\'ai pas compris :(',
+      noReturn: true
     });
   }
 

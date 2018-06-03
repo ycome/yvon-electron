@@ -7,7 +7,7 @@ import { ElectronService } from 'ngx-electron';
 })
 export class NfcReaderService {
 
-  public nfcData: Subject<any> = new Subject();
+  public nfcData: BehaviorSubject<any> = new BehaviorSubject(null);
   public nfcReady: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private _electronService: ElectronService) { }
@@ -48,5 +48,9 @@ export class NfcReaderService {
       console.log(`Device status : ${message}`);
       this.nfcReady.next(false);
     });
+  }
+
+  public nfcCardRemove() {
+    this.nfcData.next(null);
   }
 }

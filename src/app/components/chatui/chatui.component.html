@@ -10,10 +10,10 @@
         {{ message.content }}
       </mat-card>
     </div>
-    <div *ngIf="message.author === 'options'">
+    <div *ngIf="message.author === 'caroussel'">
       <div class="chat-ui-row card-options">
         <div class="card--content" *ngFor="let option of message.content">
-          <mat-card class="card-mat">
+          <mat-card class="card-mat" (click)="onClickOnCard(option)">
             <mat-card-header>
               <mat-card-title>{{ option?.name }}</mat-card-title>
             </mat-card-header>

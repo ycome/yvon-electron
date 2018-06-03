@@ -46,10 +46,12 @@ export class AudioFilesComponent implements OnInit {
           content: witResponse._text
         });
         if (!witResponse.noReturn) {
-          this._yvonService.witResponseToMessage(witResponse).then((res: any) => {
-            console.log('YVON SAY : ', res);
-            this._chatMessagesService.sendMessage(res);
-          }).catch(console.error);
+          this._yvonService.witResponseToMessage(witResponse)
+            // .then((res: any) => {
+            //   console.log('YVON SAY : ', res);
+            //   this._chatMessagesService.sendMessage(res);
+            // })
+            .catch(console.error);
         } else {
           console.warn('pas de  reponse à donner par yvon');
         }

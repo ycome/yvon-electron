@@ -13,37 +13,56 @@ export class YvonService {
   private MIN_CONFIDENCE = 0.78;
 
   private YVON_ACTIONS = {
-    cours: {
-      author: 'yvon',
-      content: 'Voici les prochains cours : ',
-      actionFn: p => this.getNextCours(p),
-      entities: { formation_type: [] },
-      listType: 'calendarList',
-      list: { next: [], now: [] }
+    newUser: {
+      messages: [{
+        author: 'yvon',
+        content: 'Bonjour, veuillez selectionner votre formation :'
+      }],
+      resultMessage: {
+        author: 'caroussel',
+        content: []
+      },
+      action: {
+        option: {
+          callback: 'newUser',
+          params: ['id']
+        },
+        actionFn: () => this.getFormations(),
+      }
     },
     formations: {
-      author: 'yvon',
-      content: 'Voici les formations du campus :',
-      actionFn: (p) => this.getFormations(p),
-      entities: { formation_type: [] },
-      listType: 'simpleList',
-      list: []
+      messages: [{
+        author: 'yvon',
+        content: 'Voici les formations du campus :'
+      }],
+      resultMessage: {
+        author: 'caroussel',
+        content: []
+      },
+      action: {
+        actionFn: (p) => this.getFormations(p),
+        entities: { formation_type: [] }
+      }
     },
-    newUser: {
-      author: 'yvon',
-      content: 'Bonjour, veuillez selectionner votre formation :',
-      actionFn: () => this.getFormations(),
-      entities: { formation_type: [] },
-      listType: 'selectionListNewUser',
-      list: []
-    },
-    carouselOptions: {
-      author: 'options',
-      content: [],
+    cours: {
+      messages: [{
+        author: 'yvon',
+        content: 'Voici les prochains cours : '
+      }],
+      resultMessage: {
+        author: 'caroussel',
+        content: []
+      },
+      action: {
+        actionFn: p => this.getNextCours(p),
+        entities: { formation_type: [] }
+      }
     },
     default: {
-      author: 'yvon',
-      content: 'Désolé, je ne sais pas comment vous aidez :('
+      messages: [{
+        author: 'yvon',
+        content: 'Désolé, je ne sais pas comment vous aidez :('
+      }]
     }
   };
 
@@ -63,24 +82,25 @@ export class YvonService {
               content: 'Bonjour étudiant en '
             });
           } else {
-            this.execAction(this.YVON_ACTIONS.newUser).then((message: any) => {
-              delete message.actionFn;
-              delete message.entities;
-              message.userId = cardId;
-              console.log('YVON SAY : ', message);
-              let selectFormations = this.YVON_ACTIONS.carouselOptions;
-              selectFormations.content = message.list;
-              this._messagesService.sendMessage(message);
-              this._messagesService.sendMessage(selectFormations);
-            }).catch(err => {
-              console.error(err);
-            });
+            this.execAction(this.YVON_ACTIONS.newUser).then((action: any) => {
+              this.sendMessages(action);
+            }).catch(console.error);
           }
-        }).catch(err => {
-          console.error(err);
-        });
+        }).catch(console.error);
       }
     });
+  }
+
+  sendMessages(action) {
+    console.log('YVON.SERVICE SAY', action);
+    if (action.messages && action.messages.length > 0) {
+      action.messages.forEach(mes => {
+        this._messagesService.sendMessage(mes);
+      });
+    }
+    if (action.resultMessage) {
+      this._messagesService.sendMessage(action.resultMessage);
+    }
   }
 
   getNextCours(entities) {
@@ -118,15 +138,27 @@ export class YvonService {
     });
   }
 
-  execAction(action) {
+  execAction(yvonAction) {
     return new Promise((resolve, reject) => {
-      if (action && action.actionFn) {
-        resolve(action.actionFn(action.entities).then(list => {
-          action.list = list;
-          return action;
+      if (yvonAction && yvonAction.action && yvonAction.action.actionFn) {
+        resolve(yvonAction.action.actionFn(yvonAction.action.entities).then(list => {
+          yvonAction.resultMessage.content = list;
+          if (yvonAction.action.option) {
+            yvonAction.resultMessage.content.map(ct => {
+              const params = {
+                callback: yvonAction.action.option.callback
+              };
+              (yvonAction.action.option.params || []).forEach(param => {
+                params[param] = ct[param];
+              });
+              ct.onSelectParam = params;
+              return ct;
+            });
+          }
+          return yvonAction;
         }));
       } else {
-        resolve(action);
+        resolve(yvonAction);
       }
     });
   }
@@ -144,17 +176,15 @@ export class YvonService {
         const intents = witResponse.entities.intent.filter(int => this.filterConfidence(int));
         if (intents.length > 0) {
           const intent = intents.sort((int1, int2) => this.sortByConfidence(int1, int2))[0];
-          const action = this.getAction(intent, witResponse);
-          resolve(this.execAction(action).then((message: any) => {
-            delete message.actionFn;
-            delete message.entities;
-            return message;
+          resolve(this.execAction(this.getAction(intent, witResponse)).then((action: any) => {
+            this.sendMessages(action);
           }));
-
         } else {
+          this.sendMessages(this.YVON_ACTIONS.default);
           resolve(this.YVON_ACTIONS.default);
         }
       } else {
+        this.sendMessages(this.YVON_ACTIONS.default);
         resolve(this.YVON_ACTIONS.default);
       }
     });
@@ -163,10 +193,10 @@ export class YvonService {
   getAction(intent, witResponse) {
     if (this.YVON_ACTIONS[intent.value]) {
       const yvonAction = this.YVON_ACTIONS[intent.value];
-      if (yvonAction.entities && witResponse.entities) {
-        Object.keys(yvonAction.entities).forEach(yvonActionEntity => {
+      if (yvonAction.action.entities && witResponse.entities) {
+        Object.keys(yvonAction.action.entities).forEach(yvonActionEntity => {
           if (witResponse.entities[yvonActionEntity]) {
-            yvonAction.entities[yvonActionEntity] = witResponse.entities[yvonActionEntity].map(ent => ent.value);
+            yvonAction.action.entities[yvonActionEntity] = witResponse.entities[yvonActionEntity].map(ent => ent.value);
           }
         });
       }
@@ -174,6 +204,10 @@ export class YvonService {
     } else {
       return this.YVON_ACTIONS.default;
     }
+  }
+
+  public callback(params) {
+    console.log(params);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable, throwError, BehaviorSubject } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -48,7 +48,13 @@ export class DatabaseService {
   }
 
   getFormations() {
-    return this.formations.valueChanges();
+    return this.formations.snapshotChanges().pipe(map(changes => {
+      return changes.map(a => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      });
+    }));
   }
 
   getGroups() {

@@ -13,6 +13,7 @@ import { AudioFilesComponent } from './components/audio-files/audio-files.compon
 import { NfcReaderComponent } from './components/nfc-reader/nfc-reader.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { environment } from '../environments/environment';
 import { RecorderService } from './services/recorder/recorder.service';
 
@@ -42,7 +43,7 @@ import { ChatMessagesService } from './services/chat-messages/chat-messages.serv
     NgxElectronModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
+    // AngularFirestoreModule.enablePersistence(),
     MatProgressSpinnerModule,
     MatButtonModule,
     MatIconModule,
@@ -53,7 +54,8 @@ import { ChatMessagesService } from './services/chat-messages/chat-messages.serv
   providers: [
     WitService,
     RecorderService,
-    ChatMessagesService
+    ChatMessagesService,
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })

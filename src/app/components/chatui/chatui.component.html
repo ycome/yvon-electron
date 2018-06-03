@@ -1,85 +1,31 @@
 <div #scrollMe class="chat-ui">
-  <div class="chat-ui-row" *ngFor="let message of messages | async" [ngClass]="{'start': message.author === 'yvon',  'end': message.author === 'student'}">
+  <!-- <div class="chat-ui-row" *ngFor="let message of messages | async" [ngClass]="{'start': message.author === 'yvon',  'end': message.author === 'student'}">
     <mat-card [ngClass]="{'chat-ui-yvon': message.author === 'yvon',  'chat-ui-student': message.author === 'student'}">
       {{ message.content }}
     </mat-card>
-  </div>
-  <!-- <div class="chat-ui-row start">
-    <mat-card class="chat-ui-yvon">Message from Yvon</mat-card>
-  </div>
-  <div class="chat-ui-row end">
-    <mat-card class="chat-ui-student">Message from students</mat-card>
-  </div>
-  <div class="chat-ui-row end">
-    <mat-card class="chat-ui-student">
-      <p>
-        Message from students, je vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin
-        da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf
-        asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere
-        isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous
-        encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko
-        sajkdjsa kjfk jsakljf as
-      </p>
-    </mat-card>
-  </div>
-  <div class="chat-ui-row start">
-    <mat-card class="chat-ui-yvon">
-      <p>Message from students, je vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste
-        putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf
-        asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere
-        isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous
-        encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko
-        sajkdjsa kjfk jsakljf as</p>
-    </mat-card>
-  </div>
-  <div class="chat-ui-row start">
-    <mat-card class="chat-ui-yvon">Message from Yvon, Message from students, je vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje
-      vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko
-      sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la
-      poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk
-      jsakljf asje vous encule la poste putin da ca mere isjadko sajkdjsa kjfk jsakljf asje vous encule la poste putin da
-      ca mere isjadko sajkdjsa kjfk jsakljf as</mat-card>
-  </div>
-  <div class="chat-ui-row end">
-    <mat-card class="chat-ui-student">Message from students</mat-card>
-  </div>
-  <div class="chat-ui-row end">
-    <mat-card class="chat-ui-student">Message from students</mat-card>
   </div> -->
-  <!-- <div fxLayout="row" fxLayoutAlign="start center">
-    <mat-card>Message from Yvon</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="end center">
-    <mat-card>Message from students</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <mat-card>Message from Yvon</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <mat-card>Message from Yvon</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="end center">
-    <mat-card>Message from students</mat-card>
-  </div>
-  <div fxLayout="row" class="chat-ui-row" fxLayoutAlign="end center">
-    <mat-card>Message from students</mat-card>
-  </div>
-  <div fxLayout="row" class="chat-ui-row" fxLayoutAlign="end center">
-    <mat-card>Message from students</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="end center">
-    <mat-card>Message from students</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <mat-card>Message from Yvon</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="end center">
-    <mat-card>Message from students</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <mat-card>Message from Yvon</mat-card>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <mat-card>Message from Yvon</mat-card>
-  </div> -->
+  <ng-container *ngFor="let message of messages | async">
+    <div *ngIf="message.author === 'student' || message.author === 'yvon'" class="chat-ui-row" [ngClass]="{'start': message.author === 'yvon',  'end': message.author === 'student'}">
+      <mat-card [ngClass]="{'chat-ui-yvon': message.author === 'yvon',  'chat-ui-student': message.author === 'student'}">
+        {{ message.content }}
+      </mat-card>
+    </div>
+    <div *ngIf="message.author === 'options'">
+      <div class="chat-ui-row card-options">
+        <div class="card--content" *ngFor="let option of message.content">
+          <mat-card class="card-mat">
+            <mat-card-header>
+              <mat-card-title>{{ option?.name }}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="{{ option?.logo }}" class="img-option">
+            <mat-card-content>
+              <p class="block-with-text">
+                {{ option?.description }}
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>

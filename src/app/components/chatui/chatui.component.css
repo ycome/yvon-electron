@@ -32,3 +32,64 @@
   background-color: #E93863;
   max-width: 70%;
 }
+
+.card-options {
+  min-width: 100%;
+  min-height: 200px;
+  overflow: hidden;
+  background-color: rgb(248, 248, 248);
+  box-shadow: inset 0px 11px 8px -10px #CCC, inset 0px -11px 8px -10px #CCC;
+  padding-top: 5px;
+}
+
+.card-options::-webkit-scrollbar {
+  display: none;
+}
+
+.card--content {
+  min-width: 300px;
+  margin: 5px;
+  box-shadow: 3px 5px rgba(255, 255, 255, 0.05);
+  overflow: auto;
+}
+
+.card-mat {
+  max-width: 300px;
+  min-width: 200px;
+  max-height: 300px;
+  min-height: 200px;
+}
+
+.img-option {
+  width: 300px;
+  height: 134px;
+  margin: auto;
+}
+
+.block-with-text {
+  overflow: hidden;
+  position: relative;
+  line-height: 1.2em;
+  max-height: 8em;
+  text-align: justify;
+  margin-right: -1em;
+  padding-right: 1em;
+  padding-top: 15px
+}
+
+.block-with-text:before {
+  content: '...';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.block-with-text:after {
+  content: '';
+  position: absolute;
+  right: 0;
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  background: white;
+}

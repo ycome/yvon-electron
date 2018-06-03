@@ -37,6 +37,10 @@ export class YvonService {
       listType: 'selectionListNewUser',
       list: []
     },
+    carouselOptions: {
+      author: 'options',
+      content: [],
+    },
     default: {
       author: 'yvon',
       content: 'Désolé, je ne sais pas comment vous aidez :('
@@ -64,7 +68,10 @@ export class YvonService {
               delete message.entities;
               message.userId = cardId;
               console.log('YVON SAY : ', message);
+              let selectFormations = this.YVON_ACTIONS.carouselOptions;
+              selectFormations.content = message.list;
               this._messagesService.sendMessage(message);
+              this._messagesService.sendMessage(selectFormations);
             }).catch(err => {
               console.error(err);
             });

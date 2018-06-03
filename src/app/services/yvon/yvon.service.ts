@@ -97,7 +97,11 @@ export class YvonService {
         if (intents.length > 0) {
           const intent = intents.sort((int1, int2) => this.sortByConfidence(int1, int2))[0];
           const action = this.getAction(intent, witResponse);
-          resolve(this.execAction(action));
+          resolve(this.execAction(action).then((message: any) => {
+            delete message.actionFn;
+            delete message.entities;
+            return message;
+          }));
 
         } else {
           resolve(this.YVON_ACTIONS.default);

@@ -23,8 +23,14 @@ export class YvonService {
         content: []
       },
       action: {
+        // option: {
+        //   callback: 'newUser',
+        //   params: ['id']
+        // },
         option: {
           callback: 'newUser',
+          forButtons: 'groups',
+          buttonText: 'level',
           params: ['id']
         },
         actionFn: () => this.getFormations(),
@@ -161,14 +167,62 @@ export class YvonService {
           yvonAction.resultMessage.content = list;
           if (yvonAction.action.option) {
             yvonAction.resultMessage.content.map(ct => {
-              const params = {
-                callback: yvonAction.action.option.callback
-              };
-              (yvonAction.action.option.params || []).forEach(param => {
-                params[param] = ct[param];
-              });
-              ct.onSelectParam = params;
-              return ct;
+              if (
+                yvonAction.action.option.forButtons &&
+                ct[yvonAction.action.option.forButtons] &&
+                ct[yvonAction.action.option.forButtons].length > 0
+              ) {
+                const buttons = {
+                  callback: yvonAction.action.option.callback,
+                  btns: []
+                };
+                const promises = [];
+                if (ct[yvonAction.action.option.forButtons][0].get) {
+                  ct[yvonAction.action.option.forButtons].forEach(element => {
+                    promises.push(element.get().then(elem => {
+                      const btn = {
+                        text: elem.data()[yvonAction.action.option.buttonText],
+                        onSelectParam: {
+                          callback: yvonAction.action.option.callback
+                        }
+                      };
+                      (yvonAction.action.option.params || []).forEach(param => {
+                        if (param === 'id') {
+                          btn.onSelectParam[param] = elem.id;
+                        } else {
+                          btn.onSelectParam[param] = elem.data()[param];
+                        }
+                      });
+                      buttons.btns.push(btn);
+                    }));
+                  });
+                  ct.buttons = buttons;
+                } else {
+                  ct[yvonAction.action.option.forButtons].forEach(elem => {
+                    const btn = {
+                      text: elem[yvonAction.action.option.buttonText],
+                      onSelectParam: {
+                        callback: yvonAction.action.option.callback
+                      }
+                    };
+                    (yvonAction.action.option.params || []).forEach(param => {
+                      btn.onSelectParam[param] = elem[param];
+                    });
+                    buttons.btns.push(btn);
+                  });
+                  ct.buttons = buttons;
+                }
+                resolve(Promise.all(promises).then(() => ct));
+              } else {
+                const params = {
+                  callback: yvonAction.action.option.callback
+                };
+                (yvonAction.action.option.params || []).forEach(param => {
+                  params[param] = ct[param];
+                });
+                ct.onSelectParam = params;
+                return ct;
+              }
             });
           }
           return yvonAction;

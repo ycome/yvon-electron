@@ -56,7 +56,7 @@ export class YvonService {
         content: 'Voici les prochains cours : '
       }],
       resultMessage: {
-        author: 'caroussel',
+        author: 'carousselCours',
         content: []
       },
       action: {
@@ -87,11 +87,13 @@ export class YvonService {
     this._nfcService.nfcData.subscribe(cardId => {
       this._messagesService.clearChat();
       if (cardId) {
-        this._databaseService.getNfcCardById(cardId).pipe(first()).toPromise().then(user => {
+        this._databaseService.getNfcCardById(cardId).pipe(first()).toPromise().then((user: any) => {
           if (user) {
-            this._messagesService.sendMessage({
-              author: 'yvon',
-              content: 'Bonjour étudiant en '
+            user.group.get().then(group => {
+              this._messagesService.sendMessage({
+                author: 'yvon',
+                content: `Bonjour étudiant en ${group.data().name}`
+              });
             });
           } else {
             this.execAction(this.YVON_ACTIONS.newUser).then((action: any) => {
@@ -116,7 +118,21 @@ export class YvonService {
   }
 
   getNextCours(entities) {
-    return Promise.resolve(this._calendar.getCurrentEventOfFormation('ingesup_b2'));
+    if (this._nfcService.nfcData.value) {
+      return this._databaseService.getNfcCardById(this._nfcService.nfcData.value).pipe(first()).toPromise().then((user: any) => {
+        if (user) {
+          return user.group.get().then(group => {
+            return Promise.resolve(this._calendar.getCurrentEventOfFormation(group.data().calendar));
+          });
+        } else {
+          return this.execAction(this.YVON_ACTIONS.newUser).then((action: any) => {
+            this.sendMessages(action);
+          }).catch(console.error);
+        }
+      });
+    } else {
+      return Promise.reject([]);
+    }
     // if (entities.length > 0) {
     //   return this._calendar.getCurrentEventOfFormation('');
     // } else {
@@ -216,6 +232,8 @@ export class YvonService {
             });
           }
           return yvonAction;
+        }).catch(err => {
+          resolve(this.YVON_ACTIONS.default);
         }));
       } else {
         resolve(yvonAction);

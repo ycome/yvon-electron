@@ -6,7 +6,9 @@
       <mat-icon *ngIf="status === 'recording' || status === 'wait' ">mic</mat-icon>
       <mat-icon *ngIf="status !== 'recording' && status !== 'wait' && loading === 0">mic_none</mat-icon>
       <div *ngIf="status !== 'recording' && status !== 'wait' && loading > 0" class="loader-5">
-        <span></span>
+        <div *ngIf="status !== 'recording' && status !== 'wait' && loading > 0" class="loader-5">
+          <span></span>
+        </div>
       </div>
     </button>
   </div>

@@ -30,5 +30,23 @@
         </div>
       </div>
     </div>
+    <div *ngIf="message.author === 'carousselCours'">
+      <div class="chat-ui-row card-options">
+        <div class="card--content" *ngFor="let option of message.content">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{ option?.courseName }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <ul>
+                <li>Salle : {{ option?.salle }}</li>
+                <li>Date de debut : {{ option?.startDate | date:'medium' }}</li>
+                <li>Date de fin : {{ option?.endDate | date:'medium' }}</li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
   </ng-container>
 </div>

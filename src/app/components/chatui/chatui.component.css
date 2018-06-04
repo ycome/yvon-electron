@@ -35,10 +35,9 @@
 
 .card-options {
   min-width: 100%;
-  min-height: 200px;
   overflow: hidden;
-  background-color: rgb(248, 248, 248);
-  box-shadow: inset 0px 11px 8px -10px #CCC, inset 0px -11px 8px -10px #CCC;
+  background-color: rgb(204, 204, 204);
+  box-shadow: inset 0px 11px 8px -10px #797979, inset 0px -11px 8px -10px #797979;
   padding-top: 5px;
 }
 

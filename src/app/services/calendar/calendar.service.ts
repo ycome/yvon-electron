@@ -62,11 +62,18 @@ export class CalendarService {
       .filter(event => this.endDateIsBeforeFilter(event, date));
 
 
-    return {
-      queryDate: date,
-      now: nowAndNextEvents.filter(event => this.onlyNowEventsFilter(event, date)),
-      next: this.onlyNextEventsFilterFn(nowAndNextEvents, date)
-    };
+    // return {
+    //   queryDate: date,
+    //   now: nowAndNextEvents.filter(event => this.onlyNowEventsFilter(event, date)),
+    //   next: this.onlyNextEventsFilterFn(nowAndNextEvents, date)
+    // };
+
+    return nowAndNextEvents.filter(event => this.onlyNowEventsFilter(event, date))
+      .concat(this.onlyNextEventsFilterFn(nowAndNextEvents, date))
+      .map(res => {
+        res.courseName = res.summary.split('-')[0];
+        return res;
+      });
   }
 
   private onlyNextEventsFilterFn(events, date) {

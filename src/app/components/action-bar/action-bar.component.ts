@@ -50,4 +50,9 @@ export class ActionBarComponent implements OnInit {
   clearChat() {
     this._chatMessageService.clearChat();
   }
+
+  clearUser() {
+    this._nfcReaderService.nfcCardRemove();
+    this.clearChat();
+  }
 }

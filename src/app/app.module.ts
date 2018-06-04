@@ -43,7 +43,6 @@ import { ChatMessagesService } from './services/chat-messages/chat-messages.serv
     NgxElectronModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
-    // AngularFirestoreModule.enablePersistence(),
     MatProgressSpinnerModule,
     MatButtonModule,
     MatIconModule,

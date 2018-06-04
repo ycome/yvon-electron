@@ -72,17 +72,9 @@ export class DatabaseService {
   addNfcCard(id, groupId) {
     return new Promise((resolve, reject) => {
       if (id && groupId) {
-        this.getGroupById(groupId).pipe(first()).toPromise()
-          .then(group => {
-            return this.users.add({
-              id: id,
-              group: group
-            });
-          }).then(user => {
-            resolve(user);
-          }).catch(err => {
-            reject(err);
-          });
+        resolve(this.users.doc(id).set({
+          group: this.groups.doc(groupId).ref
+        }));
       } else {
         reject('id and group id must be defined');
       }

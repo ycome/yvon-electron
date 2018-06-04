@@ -67,7 +67,7 @@ export class YvonService {
     userSaved: {
       messages: [{
         author: 'yvon',
-        content: 'enregistré :) veuillez repasser votre carte...'
+        content: 'Enregistré :) veuillez repasser votre carte...'
       }]
     },
     default: {

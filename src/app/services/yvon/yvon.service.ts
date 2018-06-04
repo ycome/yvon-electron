@@ -64,6 +64,12 @@ export class YvonService {
         entities: { formation_type: [] }
       }
     },
+    userSaved: {
+      messages: [{
+        author: 'yvon',
+        content: 'enregistré :) veuillez repasser votre carte...'
+      }]
+    },
     default: {
       messages: [{
         author: 'yvon',
@@ -278,8 +284,18 @@ export class YvonService {
 
   public callback(params) {
     console.log(params);
+    if (params && params.callback) {
+      if (params.callback === 'newUser' && this._nfcService.nfcData.value) {
+        this._messagesService.clearChat();
+        this._databaseService.getNfcCardById(this._nfcService.nfcData.value).pipe(first()).toPromise().then((user: any) => {
+          if (!user || !user.exist) {
+            this._databaseService.addNfcCard(this._nfcService.nfcData.value, params.id).then(() => {
+              this.sendMessages(this.YVON_ACTIONS.userSaved);
+            }).catch(console.error);
+          }
+        }).catch(console.error);
+      }
+    }
   }
-
 }
-
 

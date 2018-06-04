@@ -166,7 +166,9 @@ export class YvonService {
                     promises.push(element.get().then(elem => {
                       const btn = {
                         text: elem.data()[yvonAction.action.option.buttonText],
-                        onSelectParam: {}
+                        onSelectParam: {
+                          callback: yvonAction.action.option.callback
+                        }
                       };
                       (yvonAction.action.option.params || []).forEach(param => {
                         if (param === 'id') {
@@ -183,7 +185,9 @@ export class YvonService {
                   ct[yvonAction.action.option.forButtons].forEach(elem => {
                     const btn = {
                       text: elem[yvonAction.action.option.buttonText],
-                      onSelectParam: {}
+                      onSelectParam: {
+                        callback: yvonAction.action.option.callback
+                      }
                     };
                     (yvonAction.action.option.params || []).forEach(param => {
                       btn.onSelectParam[param] = elem[param];

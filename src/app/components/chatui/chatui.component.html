@@ -23,6 +23,9 @@
                 {{ option?.description }}
               </p>
             </mat-card-content>
+            <mat-card-actions *ngIf="option?.buttons && option?.buttons.btns && option?.buttons.btns.length > 0">
+              <button *ngFor="let but of option.buttons.btns" mat-fab color="warn" (click)="onClickOnCard(but)">{{but.text}}</button>
+            </mat-card-actions>
           </mat-card>
         </div>
       </div>

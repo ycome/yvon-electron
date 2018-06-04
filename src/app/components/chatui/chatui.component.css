@@ -25,12 +25,14 @@
   color: #fff;
   background-color: #1BB09D;
   max-width: 70%;
+  margin-top: 10px;
 }
 
 .chat-ui-yvon {
   color: #fff;
   background-color: #E93863;
   max-width: 70%;
+  margin-top: 10px;
 }
 
 .card-options {
@@ -49,13 +51,13 @@
   min-width: 300px;
   margin: 5px;
   box-shadow: 3px 5px rgba(255, 255, 255, 0.05);
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .card-mat {
   max-width: 300px;
   min-width: 200px;
-  max-height: 300px;
+  /* max-height: 300px; */
   min-height: 200px;
 }
 

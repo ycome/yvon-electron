@@ -119,9 +119,7 @@ export class YvonService {
             return Promise.resolve(this._calendar.getCurrentEventOfFormation(group.data().calendar));
           });
         } else {
-          return this.execAction(this.YVON_ACTIONS.newUser).then((action: any) => {
-            this.sendMessages(action);
-          }).catch(console.error);
+          return Promise.reject([]);
         }
       });
     } else {
